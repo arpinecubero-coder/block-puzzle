@@ -899,6 +899,8 @@ function checkGameOver() {
 }
 
 function startGame() {
+  refreshDims();
+  calcLayout();
   S.screen = 'game'; S.gameOver = false;
   S.activeMusic = MUSIC_LIBRARY[Math.floor(Math.random() * MUSIC_LIBRARY.length)];
   startMusic();
@@ -1675,16 +1677,18 @@ function handleClick(tx, ty) {
     render(); return;
   }
 
-  if (S.bombMode) {
-    const cell = getGridCell(tx, ty);
-    if (!cell) { S.bombMode = false; S.bombConfirmed = false; render(); return; }
-    if (S.bombConfirmed && cell.r === S.bombR && cell.c === S.bombC) {
-      doBomb(cell.r, cell.c); S.bombConfirmed = false;
-    } else {
-      S.bombR = cell.r; S.bombC = cell.c; S.bombConfirmed = true;
-    }
-    render(); return;
+if (S.bombMode) {
+  const cell = getGridCell(tx, ty);
+  if (!cell) { S.bombMode = false; S.bombConfirmed = false; render(); return; }
+  if (S.bombConfirmed && cell.r === S.bombR && cell.c === S.bombC) {
+    doBomb(cell.r, cell.c);
+    S.bombMode = false; 
+    S.bombConfirmed = false;
+  } else {
+    S.bombR = cell.r; S.bombC = cell.c; S.bombConfirmed = true;
   }
+  render(); return;
+}
 
   const info = getTouchPiece(tx, ty);
   if (info) {
@@ -1705,6 +1709,7 @@ function handlePointerMove(tx, ty) {
 }
 
 function handlePointerUp(tx, ty) {
+  if (S.bombMode) return;  
   if (S.drag) endDrag();
 }
 
