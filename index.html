@@ -926,8 +926,8 @@ function startGame() {
 
 function checkMilestones() {
   let bombEarned = 0, rerollEarned = 0;
-  while (S.score >= S.bombMilestone + 500) { S.bombMilestone += 500; S.bombsLeft++; bombEarned++; }
-  while (S.score >= S.rerollMilestone + 100) { S.rerollMilestone += 100; S.rerollsLeft++; rerollEarned++; }
+  while (S.score >= S.bombMilestone + 1000) { S.bombMilestone += 1000; S.bombsLeft++; bombEarned++; }
+  while (S.score >= S.rerollMilestone + 500) { S.rerollMilestone += 500; S.rerollsLeft++; rerollEarned++; }
   if (bombEarned > 0) { S.bombFlash = Date.now(); S.bombFlashN = bombEarned; }
   if (rerollEarned > 0) { S.rerollFlash = Date.now(); S.rerollFlashN = rerollEarned; }
 }
@@ -1467,7 +1467,7 @@ function drawTutorial() {
   const hintAlpha = 0.3 + Math.sin(t * 0.8) * 0.1;
   ctx.fillStyle = `rgba(255,255,255,${hintAlpha})`;
   ctx.font = '11px sans-serif'; ctx.textAlign = 'center';
-  ctx.fillText('💣 每500分+1 | 🔄 每100分+1 | 💣 点击两次引爆', cx, S.toolY + 48);
+  ctx.fillText('💣 每1000分+1 | 🔄 每500分+1 | 💣 点击两次引爆', cx, S.toolY + 48);
   ctx.fillText('开始拖拽后引导自动消失', cx, S.toolY + 64);
   ctx.textAlign = 'start';
 }
